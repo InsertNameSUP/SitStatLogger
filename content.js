@@ -11,7 +11,6 @@ function getSitStats() {
             sitStats = sitStats.response;
             for(var i = 1; i < sitStats.length; i++) {// i = 1, skips the total
             var sitTag = sitStats[i].label.toUpperCase() + "-" + dateYear.toString();
-            if(sitStatsJSON[sitTag]) continue; // If month is already logged, skip.
             sitStatsJSON[sitTag] = sitStats[i].count;
             }
             console.log(sitStatsJSON);
