@@ -21,8 +21,7 @@ function getSitStats() {
 
 }
 getSitStats();
-
-if (location.href.split("/")[4].includes(localStorage.getItem("playerSteam64"))) {
+if (location.href.split("/")[4] && location.href.split("/")[4].includes(localStorage.getItem("playerSteam64"))) {
     document.getElementsByTagName("title")[0].innerHTML = "Profile - Recording Sits";
         function updateSitsUI() {
             const dateThreeMonths = new Date().setMonth(new Date().getMonth()-1); // 3 months ago
