@@ -1,6 +1,8 @@
 if(!localStorage.getItem("playerSteam64")) {
-var staffID32 = prompt("A steam ID is required to begin tracking your sit stats(STEAM_0:0:XXXXXXXX):")
-if(steam.IsSteamID32(staffID32.trim())) localStorage.setItem("playerSteam64", steam.SteamIDTo64(staffID32.trim()));
+    setTimeout(() => {
+        var staffID32 = prompt("A steam ID is required to begin tracking your sit stats(STEAM_0:0:XXXXXXXX):")
+        if(steam.IsSteamID32(staffID32.trim())) localStorage.setItem("playerSteam64", steam.SteamIDTo64(staffID32.trim()));
+    }, 1500);
 }
 function getSitStats() {
     var sitStatsJSON = {};
@@ -21,6 +23,7 @@ function getSitStats() {
 
 }
 getSitStats();
+var totalSits = 0;
 if (location.href.split("/")[4] && location.href.split("/")[4].includes(localStorage.getItem("playerSteam64"))) {
     document.getElementsByTagName("title")[0].innerHTML = "Profile - Recording Sits";
         function updateSitsUI() {
@@ -32,6 +35,7 @@ if (location.href.split("/")[4] && location.href.split("/")[4].includes(localSto
             var currentMonth = dateFormatter.format(new Date()).toUpperCase() + "-" + new Date().getFullYear();
             var ThreeMonthsAgo = dateFormatter.format(dateThreeMonths).toUpperCase() + "-" + new Date().getFullYear()
             for(var sitMonth in sitStats) {
+            totalSits += sitStats[sitMonth];
             if(sitMonth == lastMonth || sitMonth == currentMonth || sitMonth == ThreeMonthsAgo) continue;
             var statElem = document.createElement("div")
             statElem.classList.add("stat");
@@ -39,7 +43,8 @@ if (location.href.split("/")[4] && location.href.split("/")[4].includes(localSto
             <div class="human-readable-number">${sitStats[sitMonth]}</div>
             <span class="stat-label">${sitMonth}</span>
             `
-            document.querySelector("#app > div:nth-child(2) > div > div:nth-child(2) > div.panel-body > div > div:nth-child(2) > div").appendChild(statElem);
+            document.querySelector("#app > div:nth-child(2) > div > div:nth-child(2) > div.panel-body > div > div:nth-child(2) > div").appendChild(statElem); // Stat elem
+            document.querySelector("#app > div:nth-child(2) > div > div:nth-child(2) > div.panel-body > div > div:nth-child(2) > div > div.stat > div").innerHTML = totalSits; // UpdateTotal Sits
         }
     }
     var waitForSits = setInterval(function(){
@@ -48,8 +53,6 @@ if (location.href.split("/")[4] && location.href.split("/")[4].includes(localSto
             clearInterval(waitForSits);
         }
     }, 200);
-
-    console.log("test");
     var dropDownMenuElem = document.getElementsByClassName("dropdown-menu")[3];
     var dropDownItemElem = document.createElement("li");
     var dropDownButtonElem = document.createElement("button");
