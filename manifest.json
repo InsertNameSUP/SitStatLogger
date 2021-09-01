@@ -2,7 +2,7 @@
   "manifest_version": 3,
  
   "name": "SUP Sit Stat Checker",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Keeps track of your sits beyond the 3 month mark.",
 "icons": { "128": "icon_128x128.png" },
   "content_scripts": [{
