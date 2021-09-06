@@ -23,8 +23,8 @@ function getSitStats() {
 
 }
 getSitStats();
-var totalSits = 0;
 if (location.href.split("/")[4] && location.href.split("/")[4].includes(localStorage.getItem("playerSteam64"))) {
+    var totalSits = 0;
     document.getElementsByTagName("title")[0].innerHTML = "Profile - Recording Sits";
         function updateSitsUI() {
             const dateThreeMonths = new Date().setMonth(new Date().getMonth()-1); // 3 months ago
@@ -36,6 +36,7 @@ if (location.href.split("/")[4] && location.href.split("/")[4].includes(localSto
             var ThreeMonthsAgo = dateFormatter.format(dateThreeMonths).toUpperCase() + "-" + new Date().getFullYear()
             for(var sitMonth in sitStats) {
             totalSits += sitStats[sitMonth];
+            console.log(totalSits)
             if(sitMonth == lastMonth || sitMonth == currentMonth || sitMonth == ThreeMonthsAgo) continue;
             var statElem = document.createElement("div")
             statElem.classList.add("stat");
@@ -44,8 +45,8 @@ if (location.href.split("/")[4] && location.href.split("/")[4].includes(localSto
             <span class="stat-label">${sitMonth}</span>
             `
             document.querySelector("#app > div:nth-child(2) > div > div:nth-child(2) > div.panel-body > div > div:nth-child(2) > div").appendChild(statElem); // Stat elem
-            document.querySelector("#app > div:nth-child(2) > div > div:nth-child(2) > div.panel-body > div > div:nth-child(2) > div > div.stat > div").innerHTML = totalSits; // UpdateTotal Sits
         }
+        document.querySelector("#app > div:nth-child(2) > div > div:nth-child(2) > div.panel-body > div > div:nth-child(2) > div > div.stat > div").innerHTML = totalSits; // UpdateTotal Sits
     }
     var waitForSits = setInterval(function(){
         if(document.querySelector("#app > div:nth-child(2) > div > div:nth-child(2) > div.panel-body > div > div:nth-child(2) > div")) {
